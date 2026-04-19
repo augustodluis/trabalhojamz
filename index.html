@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#007168" />
+
+  <!-- SEO -->
+  <title>Trabalho Já MZ — Oportunidades de trabalho em Moçambique</title>
+  <meta name="description" content="Plataforma open source que liga talento moçambicano a oportunidades reais de trabalho. Cadastre-se como trabalhador ou contrate serviços em todas as 11 províncias de Moçambique." />
+  <meta name="keywords" content="trabalho, emprego, biscate, Moçambique, Maputo, Nampula, Beira, Pemba, pedreiro, mota táxi, cozinheira, construção, agricultura, transporte" />
+  <meta name="author" content="Augusto Domingos Luís" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://augustodluis.github.io/trabalhojamz/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Trabalho Já MZ — Oportunidades em Moçambique" />
+  <meta property="og:description" content="Ligamos talento local a oportunidades reais em todas as 11 províncias de Moçambique." />
+  <meta property="og:locale" content="pt_MZ" />
+  <meta property="og:url" content="https://augustodluis.github.io/trabalhojamz/" />
+  <meta property="og:image" content="https://augustodluis.github.io/trabalhojamz/assets/img/og-cover.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Trabalho Já MZ",
+    "url": "https://augustodluis.github.io/trabalhojamz/",
+    "description": "Plataforma open source que liga talento moçambicano a oportunidades de trabalho.",
+    "inLanguage": "pt-MZ",
+    "author": {
+      "@type": "Person",
+      "name": "Augusto Domingos Luís",
+      "url": "https://tuketulole.com/"
+    }
+  }
+  </script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+  <link rel="apple-touch-icon" href="assets/img/icon-192.png" />
+
+  <!-- Leaflet (GPS) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar para o conteúdo principal</a>
+
+  <!-- HEADER -->
+  <header class="hero" role="banner">
+    <div class="flag-stripe" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <a class="brand" href="#/" aria-label="Trabalho Já MZ — página inicial">
+        <img src="assets/img/logo.svg" alt="" class="brand__logo" width="56" height="56" />
+        <div class="brand__text">
+          <span class="brand__name">Trabalho Já <strong>MZ</strong></span>
+          <span class="brand__tag">Talento local · Oportunidades reais</span>
+        </div>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#/" data-route="/">Início</a>
+        <a href="#/cadastro" data-route="/cadastro">Quero Trabalhar</a>
+        <a href="#/contratar" data-route="/contratar">Preciso Contratar</a>
+        <a href="#/buscar" data-route="/buscar">Profissionais</a>
+        <a href="#/painel" data-route="/painel">Painel</a>
+        <a href="#/sobre" data-route="/sobre">Sobre</a>
+      </nav>
+      <button id="installBtn" class="btn btn--ghost" hidden aria-label="Instalar aplicação">⬇ Instalar App</button>
+    </div>
+  </header>
+
+  <main id="main" class="container" role="main">
+
+    <!-- HOME -->
+    <section class="view" data-view="/">
+      <div class="hero-copy">
+        <h1>Muitos jovens sabem trabalhar. <span class="accent">Poucas oportunidades chegam.</span></h1>
+        <p class="lead">Ligamos talento moçambicano a oportunidades reais, em todas as <strong>11 províncias</strong>. Grátis, open source, sem intermediários.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="#/cadastro">Quero Trabalhar</a>
+          <a class="btn btn--secondary" href="#/contratar">Preciso Contratar</a>
+        </div>
+      </div>
+
+      <section aria-labelledby="categorias-title" class="section">
+        <h2 id="categorias-title">Categorias populares</h2>
+        <div class="cards" id="categoryCards"></div>
+      </section>
+
+      <section aria-labelledby="disclaimer-title" class="notice notice--warn">
+        <h2 id="disclaimer-title">⚠ Aviso importante</h2>
+        <p>A plataforma <strong>não se responsabiliza</strong> pelo uso indevido ou segundas intenções sobre as informações aqui disponibilizadas. Tenha cuidado ao interagir com outras pessoas: confirme identidades, encontre-se em locais públicos e nunca partilhe dados bancários.</p>
+      </section>
+    </section>
+
+    <!-- CADASTRO -->
+    <section class="view" data-view="/cadastro" hidden>
+      <h1>Cadastro de Trabalhador</h1>
+      <p class="lead">Preencha abaixo. Os dados ficam na nossa Google Sheet, aberta à comunidade.</p>
+      <form id="workerForm" class="form" novalidate>
+        <div class="grid-2">
+          <label>Nome Completo *
+            <input name="nome" required minlength="3" autocomplete="name" />
+          </label>
+          <label>Data de Nascimento
+            <input name="nascimento" type="date" />
+          </label>
+        </div>
+
+        <fieldset class="fieldset">
+          <legend>Sexo *</legend>
+          <label class="radio"><input type="radio" name="sexo" value="F" required /> Mulher</label>
+          <label class="radio"><input type="radio" name="sexo" value="M" /> Homem</label>
+          <label class="radio"><input type="radio" name="sexo" value="Outro" /> Prefiro não dizer</label>
+        </fieldset>
+
+        <div class="grid-2">
+          <label>Telefone (+258) *
+            <input name="telefone" required inputmode="tel" pattern="^[0-9]{9}$" placeholder="84XXXXXXX" />
+            <small class="help">9 dígitos sem espaços</small>
+          </label>
+          <fieldset class="fieldset">
+            <legend>Este número tem *</legend>
+            <label class="radio"><input type="radio" name="contato" value="whatsapp" required /> WhatsApp + Chamadas</label>
+            <label class="radio"><input type="radio" name="contato" value="chamadas" /> Só Chamadas</label>
+          </fieldset>
+        </div>
+
+        <div class="grid-2">
+          <label>Província *
+            <select name="provincia" id="wProv" required></select>
+          </label>
+          <label>Distrito *
+            <select name="distrito" id="wDist" required></select>
+          </label>
+        </div>
+
+        <label>Bairro / Localidade
+          <input name="bairro" autocomplete="address-level3" />
+        </label>
+
+        <div class="grid-2">
+          <label>Categoria *
+            <select name="categoria" id="wCat" required></select>
+          </label>
+          <label>Profissão *
+            <input name="profissao" required placeholder="Ex: Pedreiro, Mota Táxi, Cozinheira" />
+          </label>
+        </div>
+
+        <label>Experiência (anos)
+          <input name="experiencia" type="number" min="0" max="60" />
+        </label>
+
+        <label>Descrição curta
+          <textarea name="descricao" rows="3" maxlength="300" placeholder="Descreva habilidades, ferramentas, disponibilidade…"></textarea>
+        </label>
+
+        <fieldset class="fieldset">
+          <legend>Localização GPS (opcional)</legend>
+          <p class="help">Partilhar a sua localização ajuda contratadores por perto a encontrá-lo.</p>
+          <button type="button" id="gpsBtn" class="btn btn--ghost">📍 Usar minha localização</button>
+          <div id="gpsMap" class="map-mini" aria-hidden="true"></div>
+          <input type="hidden" name="gps_lat" id="gpsLat" />
+          <input type="hidden" name="gps_lng" id="gpsLng" />
+        </fieldset>
+
+        <label class="checkbox">
+          <input type="checkbox" required />
+          Li e aceito o <a href="#/sobre">aviso de responsabilidade</a>.
+        </label>
+
+        <button class="btn btn--primary btn--lg" type="submit">Submeter Cadastro</button>
+        <p class="form-status" id="workerStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- CONTRATAR -->
+    <section class="view" data-view="/contratar" hidden>
+      <h1>Preciso Contratar</h1>
+      <p class="lead">Descreva o serviço. Profissionais da zona indicada verão o pedido.</p>
+      <form id="jobForm" class="form" novalidate>
+        <div class="grid-2">
+          <label>Seu Nome *
+            <input name="nome" required />
+          </label>
+          <label>Telefone *
+            <input name="telefone" required pattern="^[0-9]{9}$" placeholder="84XXXXXXX" />
+          </label>
+        </div>
+
+        <div class="grid-2">
+          <label>Província *
+            <select name="provincia" id="jProv" required></select>
+          </label>
+          <label>Distrito *
+            <select name="distrito" id="jDist" required></select>
+          </label>
+        </div>
+
+        <label>Bairro / Localidade
+          <input name="bairro" />
+        </label>
+
+        <div class="grid-2">
+          <label>Categoria *
+            <select name="categoria" id="jCat" required></select>
+          </label>
+          <label>Urgência
+            <select name="urgencia">
+              <option value="hoje">Serviço Hoje</option>
+              <option value="semana">Esta semana</option>
+              <option value="temporario">Serviço Temporário</option>
+              <option value="permanente">Permanente</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Descrição do trabalho *
+          <textarea name="descricao" required rows="4" maxlength="500"></textarea>
+        </label>
+
+        <label>Valor oferecido (MZN) — opcional
+          <input name="valor" type="number" min="0" />
+        </label>
+
+        <button class="btn btn--primary btn--lg" type="submit">Publicar Pedido</button>
+        <p class="form-status" id="jobStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- BUSCAR -->
+    <section class="view" data-view="/buscar" hidden>
+      <h1>Profissionais</h1>
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Pesquisar profissão, distrito ou bairro…" aria-label="Pesquisar" />
+        <select id="filterProv" aria-label="Filtrar por província"><option value="">Todas as províncias</option></select>
+        <select id="filterSort" aria-label="Ordenar">
+          <option value="recent">Mais recentes</option>
+          <option value="positive">Melhor avaliados</option>
+          <option value="negative">Pior avaliados</option>
+        </select>
+      </div>
+      <div id="list" class="list" aria-live="polite"></div>
+      <p id="listEmpty" class="muted" hidden>Nenhum profissional encontrado.</p>
+    </section>
+
+    <!-- PAINEL -->
+    <section class="view" data-view="/painel" hidden>
+      <h1>Painel Estatístico</h1>
+      <p class="lead">Cadastros por província — observando desigualdades de género.</p>
+
+      <div class="stats-grid" id="statsKpis"></div>
+
+      <div class="panel-grid">
+        <article class="panel">
+          <h2>Mapa de Moçambique — Mulheres vs Homens cadastrados</h2>
+          <div id="mzMap" class="mz-map" role="img" aria-label="Mapa de Moçambique com desigualdades de género por província"></div>
+          <div class="legend">
+            <span><i class="sw sw--f"></i> Maioria Mulheres</span>
+            <span><i class="sw sw--equal"></i> Equilíbrio</span>
+            <span><i class="sw sw--m"></i> Maioria Homens</span>
+            <span><i class="sw sw--none"></i> Sem dados</span>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Top categorias</h2>
+          <div id="chartCategories"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Distribuição por província</h2>
+          <div id="chartProvinces"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="view" data-view="/sobre" hidden>
+      <h1>Sobre a plataforma</h1>
+      <p>Trabalho Já MZ é uma iniciativa <strong>open source</strong> que liga talento local a oportunidades reais em Moçambique. Usa Google Sheets como base de dados pública — qualquer pessoa pode colaborar.</p>
+
+      <h2>Aviso de responsabilidade</h2>
+      <div class="notice notice--warn">
+        <p>A plataforma <strong>não se responsabiliza</strong> pelo uso com segundas intenções das informações obtidas. Tenha cuidado ao interagir:</p>
+        <ul>
+          <li>Confirme identidades antes de combinar trabalhos.</li>
+          <li>Prefira encontros em locais públicos.</li>
+          <li>Nunca partilhe dados bancários ou códigos M-Pesa/e-Mola.</li>
+          <li>Reporte perfis suspeitos.</li>
+        </ul>
+      </div>
+
+      <h2>Colaborar</h2>
+      <p>Este projeto é aberto. Contribua no GitHub ou entre na nossa comunidade:</p>
+      <ul>
+        <li>📂 <a href="https://github.com/augustodluis/trabalhojamz" target="_blank" rel="noopener">github.com/augustodluis/trabalhojamz</a></li>
+        <li>💬 <a href="https://t.me/+bSGJgG6VYLc1MTM8" target="_blank" rel="noopener">Comunidade no Telegram</a></li>
+        <li>🌐 <a href="https://tuketulole.com/" target="_blank" rel="noopener">Mais produtos do dev: tuketulole.com</a></li>
+      </ul>
+
+      <h2>Stack técnica</h2>
+      <p>HTML5 · CSS3 · JavaScript Vanilla · Leaflet · Google Apps Script · Google Sheets · PWA · GitHub Pages · Jest · Playwright.</p>
+
+      <h2>Desenvolvedor</h2>
+      <p><strong>Augusto Domingos Luís</strong> — Engenheiro de Software Pleno/Sénior.<br />
+      📧 <a href="mailto:augusto.domingos.luis@gmail.com">augusto.domingos.luis@gmail.com</a><br />
+      📞 +258 844 324 296 (Chamadas &amp; WhatsApp)<br />
+      🔗 <a href="https://tuketulole.com/" target="_blank" rel="noopener">tuketulole.com</a></p>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="flag-stripe" aria-hidden="true"></div>
+    <div class="footer__inner">
+      <p><strong>Trabalho Já MZ</strong> · Open Source · MIT License</p>
+      <p>Consultas e soluções em software no mercado moçambicano</p>
+      <p>📞 +258 844 324 296 (Chamadas &amp; WhatsApp) · ✉ augusto.domingos.luis@gmail.com</p>
+      <p>© <span id="year"></span> Augusto Domingos Luís</p>
+    </div>
+  </footer>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- App -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/map.js"></script>
+  <script src="assets/js/gps.js"></script>
+  <script src="assets/js/router.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(console.error);
+      });
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

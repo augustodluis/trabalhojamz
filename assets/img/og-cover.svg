@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#007168"/>
+      <stop offset="1" stop-color="#005249"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- listras bandeira -->
+  <rect x="0" y="0" width="1200" height="12" fill="#007168"/>
+  <rect x="0" y="12" width="1200" height="12" fill="#000"/>
+  <rect x="0" y="24" width="1200" height="12" fill="#FCD116"/>
+  <rect x="0" y="36" width="1200" height="12" fill="#CE1126"/>
+  <g font-family="-apple-system, Segoe UI, Roboto, Arial, sans-serif" fill="#fff">
+    <text x="80"  y="260" font-size="96" font-weight="800">Trabalho Já <tspan fill="#FCD116">MZ</tspan></text>
+    <text x="80"  y="340" font-size="42" font-weight="500" opacity=".92">Talento local · Oportunidades reais</text>
+    <text x="80"  y="420" font-size="32" opacity=".85">Open source · 11 províncias · PWA</text>
+    <text x="80"  y="580" font-size="26" opacity=".7">augustodluis.github.io/trabalhojamz</text>
+  </g>
+</svg>

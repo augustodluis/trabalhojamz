@@ -1,0 +1,25 @@
+{
+  "name": "Trabalho Já MZ",
+  "short_name": "TrabalhoJá",
+  "description": "Ligamos talento moçambicano a oportunidades reais em todas as 11 províncias.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#007168",
+  "lang": "pt-MZ",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "social"],
+  "icons": [
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/img/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Quero Trabalhar", "short_name": "Cadastro", "url": "./#/cadastro" },
+    { "name": "Preciso Contratar", "short_name": "Contratar", "url": "./#/contratar" },
+    { "name": "Profissionais", "short_name": "Buscar", "url": "./#/buscar" },
+    { "name": "Painel Estatístico", "short_name": "Painel", "url": "./#/painel" }
+  ]
+}

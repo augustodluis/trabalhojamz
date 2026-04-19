@@ -1,0 +1,42 @@
+{
+  "name": "trabalhojamz",
+  "version": "2.0.0",
+  "description": "Plataforma open source que liga talento moçambicano a oportunidades reais. 11 províncias, PWA, backend Google Apps Script.",
+  "private": true,
+  "homepage": "https://augustodluis.github.io/trabalhojamz/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/augustodluis/trabalhojamz.git"
+  },
+  "scripts": {
+    "start": "npx serve . -l 8080",
+    "test": "jest --config tests/jest.config.js",
+    "test:watch": "jest --config tests/jest.config.js --watch",
+    "test:e2e": "playwright test --config tests/playwright.config.js",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "test:all": "npm run test && npm run test:e2e",
+    "lint": "echo 'Add eslint here if desired'",
+    "build": "echo 'No build step — static site ready for GitHub Pages.'"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "author": {
+    "name": "Augusto Domingos Luís",
+    "email": "augusto.domingos.luis@gmail.com",
+    "url": "https://tuketulole.com/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mocambique",
+    "trabalho",
+    "emprego",
+    "biscate",
+    "pwa",
+    "open-source",
+    "google-sheets",
+    "apps-script"
+  ]
+}
