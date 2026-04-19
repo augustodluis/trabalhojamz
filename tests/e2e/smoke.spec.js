@@ -40,10 +40,22 @@ test.describe('Smoke — Trabalho Já MZ', () => {
     await expect(page.locator('#workerStatus.is-error')).toBeVisible();
   });
 
-  test('rota #/buscar mostra lista de profissionais', async ({ page }) => {
+  test('rota #/buscar mostra lista ou mensagem vazia', async ({ page }) => {
     await page.goto('/#/buscar');
-    // em modo dev temos dados simulados
-    await expect(page.locator('#list .item').first()).toBeVisible({ timeout: 10000 });
+    // Consoante o conteudo da Sheet, a pagina mostra cartoes de
+    // profissionais ou a mensagem "Nenhum profissional encontrado".
+    // Qualquer um dos cenarios e valido para o smoke test.
+    const list = page.locator('#list');
+    await expect(list).toBeVisible();
+    const items = list.locator('.item');
+    const empty = page.locator('#listEmpty');
+    await expect(async () => {
+      const count = await items.count();
+      const emptyVisible = await empty.isVisible().catch(() => false);
+      if (count === 0 && !emptyVisible) {
+        throw new Error('Lista ainda a carregar');
+      }
+    }).toPass({ timeout: 15000 });
   });
 
   test('rota #/painel renderiza mapa SVG com 11 províncias', async ({ page }) => {

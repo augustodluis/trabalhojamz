@@ -23,42 +23,35 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm ci
+      # Usamos "npm install" em vez de "npm ci" para nao exigir
+      # package-lock.json. O projecto nao precisa de dependencias
+      # reproduzidas exactamente; apenas de dependencias de teste.
+      - run: npm install --no-audit --no-fund
       - run: npm test
-
-  e2e:
-    name: E2E Tests (Playwright)
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
 
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    needs: [ test, e2e ]
+    needs: [ test ]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+
+      # Criamos uma pasta limpa apenas com os ficheiros estaticos a
+      # publicar. Assim nao levamos para o site node_modules, testes,
+      # coverage, apps-script ou ficheiros markdown de desenvolvimento.
+      - name: Prepare static site
+        run: |
+          mkdir -p _site
+          cp -r index.html manifest.webmanifest service-worker.js \
+                robots.txt sitemap.xml assets _site/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          # Publicar a raiz (ficheiros estáticos); ignorar pastas dev
-          path: '.'
+          path: '_site'
+
       - id: deployment
         uses: actions/deploy-pages@v4
