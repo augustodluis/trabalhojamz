@@ -3,6 +3,8 @@
 > **Ligamos talento local a oportunidades reais em Moçambique.**
 > Plataforma **open source**, **grátis**, **sem backend pago**, que corre em **GitHub Pages** e usa **Google Sheets** como base de dados.
 
+**Site ao vivo:** <https://augustodluis.github.io/trabalhojamz/>
+
 ![Bandeira](https://img.shields.io/badge/Moçambique-Open_Source-007168?style=flat-square)
 ![PWA](https://img.shields.io/badge/PWA-instalável-FCD116?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-CE1126?style=flat-square)
@@ -91,7 +93,7 @@ npm install
 npm start
 ```
 
-Abre `http://localhost:8080`. Em modo dev, sem backend configurado, a app usa **dados simulados** (6 profissionais exemplo) para permitir testar tudo offline.
+Abre `http://localhost:8080`. Todos os dados mostrados (profissionais, pedidos, votos) vêm da Google Sheet real através do backend Apps Script — não há dados simulados. Se a Sheet estiver vazia, a plataforma mostra listas vazias e o painel com contadores a zero.
 
 ## Configurar o backend (Google Apps Script)
 
@@ -124,7 +126,7 @@ Automaticamente via GitHub Actions:
 1. Faz push para a branch `main`.
 2. O workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) corre: **Jest → Playwright → deploy**.
 3. Em **Settings → Pages**, seleciona **Source: GitHub Actions**.
-4. A plataforma fica em `https://<user>.github.io/trabalhojamz/`.
+4. A plataforma fica em <https://augustodluis.github.io/trabalhojamz/>.
 
 ## Testes
 
